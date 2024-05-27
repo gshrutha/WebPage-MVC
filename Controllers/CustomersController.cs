@@ -22,10 +22,27 @@ namespace WebPage.Controllers
         // GET: Customers
         public async Task<IActionResult> Index()
         {
+            var Keys =  GetCustomerKeys();
             return View(await _context.TestCustomer1.ToListAsync());
         }
 
         // GET: Customers/Details/5
+
+
+        public List<CustomerKeys> GetCustomerKeys()
+        {
+            List<CustomerKeys> Keys = new List<CustomerKeys>();
+
+            try
+            {
+                Keys = _context.GetCustomerKeysAll.FromSqlInterpolated($"EXECUTE GetCusotmerKeysWithId {10146}").ToList();
+                return Keys;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -49,9 +66,7 @@ namespace WebPage.Controllers
             return View();
         }
 
-        // POST: Customers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Email,PhoneNumber")] Customer customer)
@@ -81,9 +96,7 @@ namespace WebPage.Controllers
             return View(customer);
         }
 
-        // POST: Customers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,PhoneNumber")] Customer customer)
