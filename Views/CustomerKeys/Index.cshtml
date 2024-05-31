@@ -1,0 +1,47 @@
+﻿@model IEnumerable<WebPage.Models.CustomerKeys>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<style>
+    #dataTables-example span {
+        color: #615E5A;
+        font-size: 15px;
+        font-weight: 400;
+    }
+</style>
+<h3>
+    KeyId Table
+</h3>
+<table class="table table-hover historyTable" id="dataTables-example" style="margin-bottom:0px !important; table-layout: fixed;">
+    <thead>
+        <tr style="cursor:pointer">
+            <th>
+                @Html.DisplayNameFor(model => model.KeyId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Keyname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+@foreach (var item in Model) {
+            <tr style="cursor:pointer">
+            <td>
+                @Html.DisplayFor(modelItem => item.KeyId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Keyname)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerName)
+                </td>
+            </tr>
+}
+    </tbody>
+</table>

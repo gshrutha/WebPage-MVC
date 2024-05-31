@@ -22,27 +22,12 @@ namespace WebPage.Controllers
         // GET: Customers
         public async Task<IActionResult> Index()
         {
-            var Keys =  GetCustomerKeys();
-            return View(await _context.TestCustomer1.ToListAsync());
+           return View(await _context.TestCustomer1.ToListAsync());
         }
 
         // GET: Customers/Details/5
 
 
-        public List<CustomerKeys> GetCustomerKeys()
-        {
-            List<CustomerKeys> Keys = new List<CustomerKeys>();
-
-            try
-            {
-                Keys = _context.GetCustomerKeysAll.FromSqlInterpolated($"EXECUTE GetCusotmerKeysWithId {10146}").ToList();
-                return Keys;
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -69,7 +54,7 @@ namespace WebPage.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Email,PhoneNumber")] Customer customer)
+        public async Task<IActionResult> Create([Bind("Id,Name,Email,PhoneNumber")] Customers customer)
         {
             if (ModelState.IsValid)
             {
@@ -99,7 +84,7 @@ namespace WebPage.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,PhoneNumber")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,PhoneNumber")] Customers customer)
         {
             if (id != customer.Id)
             {
@@ -129,7 +114,6 @@ namespace WebPage.Controllers
             return View(customer);
         }
 
-        // GET: Customers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -147,7 +131,6 @@ namespace WebPage.Controllers
             return View(customer);
         }
 
-        // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

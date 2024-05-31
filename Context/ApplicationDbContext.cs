@@ -11,7 +11,8 @@ namespace WebPage.Context
 
         }
 
-        public DbSet<Customer> TestCustomer1 { get; set; }
+        public DbSet<Customers> TestCustomer1 { get; set; }
+
         public DbSet<CustomerKeys> GetCustomerKeysAll { get; set; }
 
 

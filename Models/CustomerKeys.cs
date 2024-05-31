@@ -1,9 +1,13 @@
-﻿namespace WebPage.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WebPage.Models
 {
     public class CustomerKeys
     {
-
-    public int Id { get; set; }
+    [Key]
+    public int KeyId { get; set; }
+    public string Keyname { get; set; }
+    public string CustomerName { get; set; } 
 
     }
 }

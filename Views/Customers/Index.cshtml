@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebPage.Models.Customer>
+﻿@model IEnumerable<WebPage.Models.Customers>
 
 @{
     ViewData["Title"] = "Index";
@@ -6,12 +6,18 @@
 
 <h1>Customer Detail</h1>
 
-<p>
-    <a asp-action="Create">New User</a>
-</p>
-<table class="table table-bordered">
-    <thead>
-        <tr>
+<style>
+    #dataTables-example span {
+        color: #615E5A;
+        font-size: 15px;
+        font-weight: 400;
+    }
+</style>
+
+
+<table class="table table-hover historyTable" id="dataTables-example" style="margin-bottom:0px !important; table-layout: fixed;">
+    <thead> 
+        <tr style="cursor:pointer">
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -24,14 +30,15 @@
             <th>
                 Edit Options
             </th>
-        </tr>
+        </tr> 
     </thead>
     <tbody>
+       
 @foreach (var item in Model) {
-        <tr>
-            <td>
+            <tr style="cursor:pointer">
+                <td onclick="Displaykeys(@item.Id)">
                 @Html.DisplayFor(modelItem => item.Name)
-            </td>
+            </td> 
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
@@ -39,11 +46,23 @@
                 @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+<p>
+<a asp-action="Create">New User</a>
+</p>
+
+<script>
+    function Displaykeys(id){
+        console.log(id);
+        var url = '@Url.Action("Index", "CustomerKeys", new { id = "__id__" })';
+        url = url.replace('__id__', id);
+        window.location.href = url;
+    }
+</script>
